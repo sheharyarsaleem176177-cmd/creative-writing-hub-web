@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const services = [
@@ -80,8 +81,12 @@ const Footer = () => {
             © {new Date().getFullYear()} Critical Writing Hub. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-primary-foreground/60">
-            <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
+            <Link to="/privacy" className="hover:text-accent transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-accent transition-colors">
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>
