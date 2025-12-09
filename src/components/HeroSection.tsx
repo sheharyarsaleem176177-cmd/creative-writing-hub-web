@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Shield, Minus, Plus, Lock, Star, Users, Award, Check } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 const HeroSection = () => {
   const [pages, setPages] = useState(1);
@@ -18,8 +19,56 @@ const HeroSection = () => {
   const [customSubject, setCustomSubject] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
   const words = pages * 250;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitStatus(null);
+    setIsSubmitting(true);
+
+    try {
+      const formDataToSubmit = new FormData();
+      formDataToSubmit.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY ?? "");
+      formDataToSubmit.append("email", email);
+      formDataToSubmit.append("phone", phone);
+      formDataToSubmit.append("academicLevel", academicLevel);
+      formDataToSubmit.append("paperType", paperType);
+      formDataToSubmit.append("subject", subject === "custom" ? customSubject : subject);
+      formDataToSubmit.append("pages", String(pages));
+      formDataToSubmit.append("words", String(words));
+      formDataToSubmit.append("deadline", deadline);
+      formDataToSubmit.append("subject_line", "New Order Request - Creative Writing Hub");
+      formDataToSubmit.append("from_name", email);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSubmit,
+      });
+
+      const data = await res.json();
+      setSubmitStatus(data.success ? "success" : "error");
+
+      if (data.success) {
+        // Reset form fields on success
+        setPhone("");
+        setEmail("");
+        setSubject("");
+        setCustomSubject("");
+        setPaperType("essay");
+        setAcademicLevel("undergraduate");
+        setDeadline("15days");
+        setPages(1);
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="hero-section min-h-[90vh] relative overflow-hidden">
@@ -76,17 +125,17 @@ const HeroSection = () => {
             <div className="flex items-center gap-4 flex-wrap">
               <div className="flex -space-x-3">
                 <img 
-                  src="/pfp-1.jpg" 
+                  src={assetPath("pfp-1.jpg")} 
                   alt="Expert Writer 1" 
                   className="w-12 h-12 rounded-full border-2 border-accent object-cover"
                 />
                 <img 
-                  src="/pfp-2.jpg" 
+                  src={assetPath("pfp-2.jpg")} 
                   alt="Expert Writer 2" 
                   className="w-12 h-12 rounded-full border-2 border-accent object-cover"
                 />
                 <img 
-                  src="/pfp-3.jpg" 
+                  src={assetPath("pfp-3.jpg")} 
                   alt="Expert Writer 3" 
                   className="w-12 h-12 rounded-full border-2 border-accent object-cover"
                 />
@@ -134,7 +183,7 @@ const HeroSection = () => {
                   className="ml-2 block"
                 >
                   <img
-                    src="/fiverr.png"
+                    src={assetPath("fiverr.png")}
                     alt="Fiverr"
                     className="h-16 rounded-lg border-3 border-primary-foreground/20 hover:scale-105 transition-transform"
                   />
@@ -155,7 +204,7 @@ const HeroSection = () => {
                 <h3 className="text-2xl font-serif font-bold text-foreground">Place an Order Now</h3>
               </div>
 
-              <div className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 {/* Academic Level */}
                 <div>
                   <label className="text-sm font-medium text-muted-foreground mb-2 block">Academic Level</label>
@@ -295,16 +344,33 @@ const HeroSection = () => {
                 </div>
 
                 {/* Order button */}
-                <Button variant="gold" size="xl" className="w-full">
+                <Button
+                  type="submit"
+                  variant="gold"
+                  size="xl"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
                   <Lock className="h-5 w-5 mr-2" />
-                  Get Quote Now
+                  {isSubmitting ? "Sending..." : "Get Quote Now"}
                 </Button>
+
+                {submitStatus === "success" && (
+                  <p className="text-green-600 text-sm text-center">
+                    Request sent successfully!
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-600 text-sm text-center">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
 
                 <div className="flex items-center gap-2 text-sm text-muted-foreground justify-center">
                   <Check className="h-4 w-4 text-accent" />
                   Unlimited Free Revisions and Money-Back Guarantee
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

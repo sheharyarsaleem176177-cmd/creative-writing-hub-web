@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Menu, X, ShoppingCart } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ const Header = () => {
       <div className="bg-primary text-primary-foreground py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-2">
-            <img src="/uk.jpg" alt="UK Flag" className="h-5 w-auto" />
+            <img src={assetPath("uk.jpg")} alt="UK Flag" className="h-5 w-auto" />
             <span className="hidden sm:inline">United Kingdom</span>
           </div>
           <div className="flex items-center gap-3 md:gap-4 lg:gap-6 flex-wrap">
@@ -56,7 +57,7 @@ const Header = () => {
           <a href="/" className="flex items-center gap-6 md:gap-10">
             <div className="p-1 bg-primary-foreground/10 rounded-lg">
               <img 
-                src="/logo.jpg" 
+                src={assetPath("logo.jpg")} 
                 alt="Critical Writing Hub Logo" 
                 className="h-16 w-16 md:h-16 md:w-16 rounded-md object-cover"
               />

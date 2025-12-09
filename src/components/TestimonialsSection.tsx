@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 const testimonials = [
   {
@@ -7,7 +8,7 @@ const testimonials = [
     rating: 5,
     text: "Absolutely brilliant service! They delivered my dissertation proposal ahead of schedule and the quality was exceptional. My supervisor was impressed with the depth of research.",
     orderCode: "TAP-651234",
-    flag: "/uk.jpg",
+    flag: assetPath("uk.jpg"),
   },
   {
     name: "Sophie Williams",
@@ -15,7 +16,7 @@ const testimonials = [
     rating: 5,
     text: "I was struggling with my research paper deadline. The writer understood exactly what I needed and delivered a paper that got me a First! Highly recommend.",
     orderCode: "TAP-652891",
-    flag: "/uk.jpg",
+    flag: assetPath("uk.jpg"),
   },
   {
     name: "Ahmed Hassan",
@@ -23,7 +24,7 @@ const testimonials = [
     rating: 5,
     text: "The technical expertise of my assigned writer was outstanding. Complex engineering concepts explained clearly with proper calculations and diagrams.",
     orderCode: "TAP-654102",
-    flag: "/uk.jpg",
+    flag: assetPath("uk.jpg"),
   },
   {
     name: "Emily Chen",
@@ -31,7 +32,7 @@ const testimonials = [
     rating: 5,
     text: "Used their service for my economics dissertation. The statistical analysis was spot-on and the literature review was comprehensive. Worth every penny!",
     orderCode: "TAP-655823",
-    flag: "/uk.jpg",
+    flag: assetPath("uk.jpg"),
   },
   {
     name: "Oliver Brown",
@@ -39,7 +40,7 @@ const testimonials = [
     rating: 5,
     text: "Excellent legal analysis and case law references. The writer clearly understood UK law requirements. Received my paper on time with no plagiarism issues.",
     orderCode: "TAP-656445",
-    flag: "/usa.jpg",
+    flag: assetPath("usa.jpg"),
   },
   {
     name: "Grace Thompson",
@@ -47,7 +48,7 @@ const testimonials = [
     rating: 5,
     text: "Needed help with my medical literature review. The writer had genuine expertise in the field. Thorough, well-researched, and academically rigorous work.",
     orderCode: "TAP-657012",
-    flag: "/usa.jpg",
+    flag: assetPath("usa.jpg"),
   },
 ];
 

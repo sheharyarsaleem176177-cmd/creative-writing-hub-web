@@ -1,4 +1,5 @@
 import { Facebook, Linkedin, Instagram, Mail } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 const SocialShareBar = () => {
   // Get current page URL for sharing
@@ -33,7 +34,7 @@ const SocialShareBar = () => {
     },
     {
       name: "Fiverr",
-      imageSrc: "/fiverr_round.jpg",
+      imageSrc: assetPath("fiverr_round.jpg"),
       url: "https://www.fiverr.com/s/vvwQk1N",
       color: "bg-[#00b22d]",
       hoverColor: "hover:bg-[#009d28]",
